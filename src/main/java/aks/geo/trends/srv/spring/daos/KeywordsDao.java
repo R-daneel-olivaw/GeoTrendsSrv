@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import aks.geo.trends.srv.hibernate.Keyword;
+import aks.geo.trends.srv.hibernate.Region;
 
 @Repository
 public class KeywordsDao {
@@ -23,5 +24,4 @@ public class KeywordsDao {
 			session.save(keyword);
 		}
 	}
-
 }
