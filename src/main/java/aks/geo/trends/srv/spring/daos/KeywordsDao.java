@@ -2,8 +2,10 @@ package aks.geo.trends.srv.spring.daos;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,5 +25,21 @@ public class KeywordsDao {
 		for (Keyword keyword : keywords) {
 			session.save(keyword);
 		}
+	}
+
+	public void removeKeywordsForRegion(Region reg) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Keyword.class);
+		
+		criteria.add(Restrictions.eqOrIsNull("region", reg));
+		List<Keyword> list = (List<Keyword>)criteria.list();
+		
+		for (Keyword keyword : list) {
+			
+			session.delete(keyword);
+		}
+		
+		session.flush();
 	}
 }

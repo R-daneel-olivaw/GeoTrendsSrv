@@ -34,6 +34,7 @@ public class KeywordService {
 			regionsDao.saveRegion(reg);
 		}
 		
+		keywordDao.removeKeywordsForRegion(reg);		
 		
 		List<Keyword> keywords = convertToDbPojos(trending, reg);
 		keywordDao.saveKeywordList(keywords);		

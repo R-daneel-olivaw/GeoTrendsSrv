@@ -38,7 +38,7 @@ public class Keyword {
 		this.keyword = keyword;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "region_id")
 	public Region getRegion() {
 		return region;
