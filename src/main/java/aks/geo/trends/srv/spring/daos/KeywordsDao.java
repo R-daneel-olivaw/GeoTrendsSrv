@@ -1,6 +1,9 @@
 package aks.geo.trends.srv.spring.daos;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -27,7 +30,9 @@ public class KeywordsDao {
 		}
 	}
 
-	public void removeKeywordsForRegion(Region reg) {
+	public Map<String, Date> removeKeywordsForRegion(Region reg) {
+		
+		Map<String, Date> addedDateMap = new HashMap<>();
 		
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Keyword.class);
@@ -37,9 +42,11 @@ public class KeywordsDao {
 		
 		for (Keyword keyword : list) {
 			
+			addedDateMap.put(keyword.getKeyword(), keyword.getAddedDate());
 			session.delete(keyword);
 		}
-		
 		session.flush();
+		
+		return addedDateMap;
 	}
 }

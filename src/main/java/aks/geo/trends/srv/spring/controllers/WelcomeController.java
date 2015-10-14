@@ -12,14 +12,13 @@ import aks.geo.trends.srv.TrendingByCountry;
 import aks.geo.trends.srv.spring.services.KeywordService;
 
 @Controller
-@RequestMapping("/test")
 public class WelcomeController {
 	
 	@Autowired
 	KeywordService keywordService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String welcomeScreen(Model model) {
+	@RequestMapping(value="/india", method = RequestMethod.GET)
+	public String updateIndia(Model model) {
 
 		TrendingByCountry trendsCountry = new TrendingByCountry();
 		List<String> trendingIndia = trendsCountry.fetchTrendingForIndia();
@@ -28,7 +27,25 @@ public class WelcomeController {
 		
 		keywordService.updateDatabase(trendingIndia, "IN");
 		
-		model.addAttribute("trending_india", trendingIndia);
+		model.addAttribute("trending", trendingIndia);
+		model.addAttribute("reg", "India");
+
+		return "test";
+
+	}
+	
+	@RequestMapping(value="/us", method = RequestMethod.GET)
+	public String updateUs(Model model) {
+
+		TrendingByCountry trendsCountry = new TrendingByCountry();
+		List<String> trendingIndia = trendsCountry.fetchTrendingForUS();
+		
+		System.out.println("Trending for US : "+trendingIndia);
+		
+		keywordService.updateDatabase(trendingIndia, "US");
+		
+		model.addAttribute("trending", trendingIndia);
+		model.addAttribute("reg", "US");
 
 		return "test";
 

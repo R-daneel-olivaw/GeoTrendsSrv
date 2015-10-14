@@ -8,9 +8,9 @@
 </head>
 <body>
 	<h2>test controller is working</h2>
-
+	<h3>${reg}</h3>
 	<ol>
-		<c:forEach items="${trending_india}" var="keyword">
+		<c:forEach items="${trending}" var="keyword">
 			<li>${keyword}</li>
 		</c:forEach>
 	</ol>

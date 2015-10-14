@@ -1,5 +1,7 @@
 package aks.geo.trends.srv.hibernate;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ public class Keyword {
 	private Integer id;
 	private String keyword;
 	private Region region;
+	private Date addedDate;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,5 +49,14 @@ public class Keyword {
 
 	public void setRegion(Region region) {
 		this.region = region;
+	}
+
+	@Column(name = "added_date", nullable = false)
+	public Date getAddedDate() {
+		return addedDate;
+	}
+
+	public void setAddedDate(Date addedDate) {
+		this.addedDate = addedDate;
 	}
 }
