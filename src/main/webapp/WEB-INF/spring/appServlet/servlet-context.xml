@@ -25,7 +25,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<context:component-scan base-package="aks.geo.trends.srv.spring.controllers" />
+	<context:component-scan base-package="aks.geo.trends.srv.spring" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
 		destroy-method="close">

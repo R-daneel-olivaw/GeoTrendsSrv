@@ -2,6 +2,8 @@ package aks.geo.trends.srv;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
@@ -11,6 +13,7 @@ import aks.geo.trends.srv.util.NetworkUtil;
 
 public class TrendingByCountry {
 	
+	private static final String HAWTTRENDS = "http://hawttrends.appspot.com/api/terms/";
 	private JSONObject trending;
 
 	public void fetch()
@@ -27,12 +30,14 @@ public class TrendingByCountry {
 		JSONArray jsonArray = (JSONArray) trending.get("3");
 
 		trendingList = new ArrayList<>();
+		Set<String> uniqueSet = new TreeSet<>();
 		for(int i=0;i<jsonArray.length();i++)
 		{
 			String item = jsonArray.get(i).toString();
-			trendingList.add(item);
+			uniqueSet.add(item);
 		}
 		
+		trendingList.addAll(uniqueSet);
 		return trendingList;
 	}
 
@@ -57,7 +62,7 @@ public class TrendingByCountry {
 	private void fetchTrending() {
 		
 		JSONObject jsonObject = null;
-		HttpGet httpGet = new HttpGet("http://hawttrends.appspot.com/api/terms/");
+		HttpGet httpGet = new HttpGet(HAWTTRENDS);
 		
 		NetworkUtil netUtil = new NetworkUtil();
 		String stringContent = netUtil.handleGetRequest(httpGet);
