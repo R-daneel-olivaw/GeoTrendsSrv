@@ -50,6 +50,6 @@
 	</bean>
 
 	<task:annotation-driven />
-	<task:scheduler id="myScheduler" pool-size="2"/>
+	<task:scheduler id="keywordFetchScheduler" pool-size="2"/>
 
 </beans>
