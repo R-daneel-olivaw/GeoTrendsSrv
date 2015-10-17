@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20141113</version>
+			<version>20150729</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.charts4j</groupId>
@@ -147,7 +147,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>geotrendssrv</finalName>
+		<finalName>geotrendsrv</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

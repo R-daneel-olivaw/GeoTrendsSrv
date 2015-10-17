@@ -37,7 +37,7 @@ public class Tasks {
 		logger.info("Completed requesting keywords for India");
 	}
 	
-	@Scheduled(fixedDelay=60000)
+	@Scheduled(initialDelay=10000, fixedDelay=60000)
 	public void updateTrendingKeywordsUS()
 	{
 		logger.info("Requesting keywords for US");
