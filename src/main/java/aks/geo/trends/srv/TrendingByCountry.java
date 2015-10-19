@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import aks.geo.trends.srv.util.NetworkUtil;
+import aks.geo.trends.srv.util.RegionsEnum;
 
 public class TrendingByCountry {
 	
@@ -18,7 +19,7 @@ public class TrendingByCountry {
 
 	public void fetch()
 	{
-		fetchTrending();
+		fetchTrendingData();
 	}
 	
 	public List<String> fetchTrendingForIndia() {
@@ -58,8 +59,26 @@ public class TrendingByCountry {
 		
 		return trendingList;
 	}
+	
+	public List<String> fetchTrendingForRegion(int regionCode) {
+		
+		ensureData();
+		RegionsEnum region = RegionsEnum.getRegionForCode(regionCode);
+		
+		List<String> trendingList = null;		
+		JSONArray jsonArray = (JSONArray) trending.get(Integer.toString(region.getCode()));
 
-	private void fetchTrending() {
+		trendingList = new ArrayList<>();
+		for(int i=0;i<jsonArray.length();i++)
+		{
+			String item = jsonArray.get(i).toString();
+			trendingList.add(item);
+		}
+		
+		return trendingList;
+	}
+
+	private void fetchTrendingData() {
 		
 		JSONObject jsonObject = null;
 		HttpGet httpGet = new HttpGet(HAWTTRENDS);
@@ -73,11 +92,10 @@ public class TrendingByCountry {
 	}
 	
 	private void ensureData() {
-		// TODO Auto-generated method stub
 		
 		if(trending==null)
 		{
-			fetchTrending();
+			fetchTrendingData();
 		}
 	}
 }

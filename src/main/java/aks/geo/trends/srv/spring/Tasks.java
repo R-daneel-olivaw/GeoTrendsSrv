@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import aks.geo.trends.srv.TrendingByCountry;
 import aks.geo.trends.srv.spring.services.KeywordService;
+import aks.geo.trends.srv.util.RegionsEnum;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class Tasks {
 	@Autowired
 	KeywordService keywordService;
 	
-	@Scheduled(fixedDelay=60000)
+	@Scheduled(fixedDelay=120000)
 	public void updateTrendingKeywordsIndia()
 	{
 		logger.info("Requesting keywords for India");
@@ -37,7 +38,7 @@ public class Tasks {
 		logger.info("Completed requesting keywords for India");
 	}
 	
-	@Scheduled(initialDelay=10000, fixedDelay=60000)
+	@Scheduled(initialDelay=5000, fixedDelay=120000)
 	public void updateTrendingKeywordsUS()
 	{
 		logger.info("Requesting keywords for US");
@@ -52,6 +53,34 @@ public class Tasks {
 		logger.trace("completed update of DB for keywords from US");
 		
 		logger.info("Completed requesting keywords for US");
+	}
+	
+	@Scheduled(initialDelay=10000,fixedDelay=600000)
+	public void updateTrendingKeywordsForRest()
+	{
+		logger.info("Requesting keywords for Rest Of The World");
+		
+		RegionsEnum[] values = RegionsEnum.values();
+		for (RegionsEnum region : values) {
+			
+			if((region==RegionsEnum.UnitedStates)||(region==RegionsEnum.India))
+			{
+				logger.debug("Skipping "+region.getPrintName());
+				continue;
+			}
+			
+			TrendingByCountry trendsCountry = new TrendingByCountry();
+			List<String> trendingUS = trendsCountry.fetchTrendingForRegion(region.getCode());
+			
+			logger.debug("Trending for "+region.getPrintName()+" : "+trendingUS);
+			
+			logger.trace("Updating DB for keywords from "+region.getPrintName());
+			keywordService.updateDatabase(trendingUS, region.getRegion());
+			logger.trace("completed update of DB for keywords from "+region.getPrintName());
+			
+		}
+		
+		logger.info("Completed requesting keywords for Rest Of The World");
 	}
 
 }
