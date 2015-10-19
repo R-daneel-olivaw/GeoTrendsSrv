@@ -61,6 +61,8 @@ public class Tasks {
 		logger.info("Requesting keywords for Rest Of The World");
 		
 		RegionsEnum[] values = RegionsEnum.values();
+		TrendingByCountry trendsCountry = new TrendingByCountry();
+		
 		for (RegionsEnum region : values) {
 			
 			if((region==RegionsEnum.UnitedStates)||(region==RegionsEnum.India))
@@ -69,7 +71,6 @@ public class Tasks {
 				continue;
 			}
 			
-			TrendingByCountry trendsCountry = new TrendingByCountry();
 			List<String> trendingUS = trendsCountry.fetchTrendingForRegion(region.getCode());
 			
 			logger.debug("Trending for "+region.getPrintName()+" : "+trendingUS);
