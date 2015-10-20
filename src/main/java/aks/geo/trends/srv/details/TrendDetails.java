@@ -9,12 +9,17 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import aks.geo.trends.srv.spring.Tasks;
 import aks.geo.trends.srv.util.HtmlUtils;
 import aks.geo.trends.srv.util.NetworkUtil;
 
 public class TrendDetails {
 
+	private final Logger logger = LoggerFactory.getLogger(TrendDetails.class);
+	
 	private String trend;
 	private String regionCode;
 
@@ -53,8 +58,7 @@ public class TrendDetails {
 			System.out.println("Related : "+related);
 
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 
 	}
