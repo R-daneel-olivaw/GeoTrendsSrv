@@ -42,7 +42,6 @@ public class KeywordService {
 	}
 
 	private List<Keyword> convertToDbPojos(List<String> trending, Region reg, Map<String, Date> addedDateMap) {
-		// TODO Auto-generated method stub
 
 		List<Keyword> keywords = new ArrayList<>();
 		for (String item : trending) {
@@ -62,5 +61,13 @@ public class KeywordService {
 		}
 
 		return keywords;
+	}
+
+	public Integer calculateQueryCount(String regionCode, String keyword) {
+		
+		
+		
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
