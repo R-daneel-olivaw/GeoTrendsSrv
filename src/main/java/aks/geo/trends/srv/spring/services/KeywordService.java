@@ -10,10 +10,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import aks.geo.trends.srv.QueryCountByRegion;
 import aks.geo.trends.srv.hibernate.Keyword;
 import aks.geo.trends.srv.hibernate.Region;
 import aks.geo.trends.srv.spring.daos.KeywordsDao;
 import aks.geo.trends.srv.spring.daos.RegionsDao;
+import aks.geo.trends.srv.util.RegionsEnum;
 
 @Service
 public class KeywordService {
@@ -63,11 +65,12 @@ public class KeywordService {
 		return keywords;
 	}
 
-	public Integer calculateQueryCount(String regionCode, String keyword) {
+	public Float calculateQueryPopularity(RegionsEnum region, String keyword) {
 		
-		
+		QueryCountByRegion queryCount = new QueryCountByRegion();
+		Float avPopularity = queryCount.calculateCount(region,keyword);
 		
 		// TODO Auto-generated method stub
-		return null;
+		return avPopularity;
 	}
 }

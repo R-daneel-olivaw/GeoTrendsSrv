@@ -21,7 +21,7 @@ public class Tasks {
 	@Autowired
 	KeywordService keywordService;
 
-	@Scheduled(fixedDelay = 120000)
+//	@Scheduled(fixedDelay = 120000)
 	public void updateTrendingKeywordsIndiaAndUS() {
 		
 		logger.info("Requesting keywords for India");
@@ -82,7 +82,7 @@ public class Tasks {
 	 * logger.info("Completed requesting keywords for US"); }
 	 */
 
-	@Scheduled(initialDelay = 10000, fixedDelay = 600000)
+//	@Scheduled(initialDelay = 10000, fixedDelay = 600000)
 	public void updateTrendingKeywordsForRest() {
 		logger.info("Requesting keywords for Rest Of The World");
 

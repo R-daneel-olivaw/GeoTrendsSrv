@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import aks.geo.trends.srv.TrendingByCountry;
 import aks.geo.trends.srv.spring.services.KeywordService;
+import aks.geo.trends.srv.util.RegionsEnum;
 
 @Controller
 public class WelcomeController {
@@ -53,9 +54,14 @@ public class WelcomeController {
 	}
 
 	@RequestMapping(value = "/query_count/{regionCode}/{keyword}", method = RequestMethod.GET)
-	public String fetchQueryCount(@PathVariable String regionCode, @PathVariable String keyword) {
+	public String fetchQueryCount(@PathVariable String regionCode, @PathVariable String keyword, Model model) {
+		RegionsEnum region = RegionsEnum.getRegionByShortCode( regionCode.toUpperCase());
 		
-		Integer queryCount = keywordService.calculateQueryCount(regionCode, keyword);
+		Float queryCount = keywordService.calculateQueryPopularity(region, keyword);
+		
+		model.addAttribute("reg", region.getPrintName());
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("query_count", queryCount);
 
 		return "test_query_count";
 	}
